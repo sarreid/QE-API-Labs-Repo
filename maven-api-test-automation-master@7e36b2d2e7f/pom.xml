@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>au.com.sample.qe</groupId>
+    <artifactId>api-automation-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+
+        <!--
+            Define the source and target versions of Java - this ensures that no Java functionality other than
+            the target is used.
+        -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!--
+            NOTE: Using Karate 0.9.6 has issues as karate.info.scenarioName is not defined
+            when used within karate-config.js
+        -->
+        <karate.version>0.9.5</karate.version>
+
+        <!--
+            Define the test runner class names to be included and excluded
+        -->
+        <test.runner.include>runner.TagBasedApiRunner</test.runner.include>
+        <test.runner.exclude>utils.util.*Test</test.runner.exclude>
+
+        <!--
+            Define the Gatling class names to be included
+        -->
+        <gatling.include>performance.*</gatling.include>
+
+        <!--
+            The following are Maven known properties:
+
+            project.build.sourceEncoding - Source files are encoded as UTF-8
+        -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!--
+            test.failure.ignore - Whether Maven will exit with zero exit code when one or more test failures are present
+        -->
+        <test.failure.ignore>false</test.failure.ignore>
+
+        <!--
+            Whether Gatling continues running the next simulation if the previous simulation failed
+        -->
+        <gatling.continue.on.assertion.failure>true</gatling.continue.on.assertion.failure>
+
+        <!--
+            Whether Gatling will cause Maven to exit with non-zero error code when failures detected within Gatling simulations
+        -->
+        <gatling.fail.on.error>true</gatling.fail.on.error>
+
+        <!--
+            The following properties are only defined when verifying Karate tests
+        -->
+        <apitest.feature.paths/>
+        <apitest.html.report.generate/>
+        <apitest.ignore/>
+        <apitest.tags/>
+        <apitest.fail.if.failures/>
+        <karate.env/>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <!--
+                    For a list of configuration items, execute the following:
+                        mvn surefire:help -Ddetail=true -Dgoal=test
+                -->
+                <configuration>
+                    <testFailureIgnore>${test.failure.ignore}</testFailureIgnore>
+                    <includes>
+                        <include>${test.runner.include}</include>
+                    </includes>
+                    <excludes>
+                        <exclude>${test.runner.exclude}</exclude>
+                    </excludes>
+                    <systemPropertyVariables>
+                        <apitest.feature.paths>${apitest.feature.paths}</apitest.feature.paths>
+                        <apitest.html.report.generate>${apitest.html.report.generate}</apitest.html.report.generate>
+                        <apitest.ignore>${apitest.ignore}</apitest.ignore>
+                        <apitest.tags>${apitest.tags}</apitest.tags>
+                        <apitest.fail.if.failures>${apitest.fail.if.failures}</apitest.fail.if.failures>
+                        <!-- Ensure that karate.env is defined for Karate .-->
+                        <karate.env>${karate.env}</karate.env>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <!--
+                    For a list of configuration items, execute the following:
+                        mvn gatling:help -Ddetail=true -Dgoal=test
+                -->
+                <configuration>
+                    <simulationsFolder>src/test/performance</simulationsFolder>
+                    <runMultipleSimulations>true</runMultipleSimulations>
+                    <continueOnAssertionFailure>${gatling.continue.on.assertion.failure}</continueOnAssertionFailure>
+                    <failOnError>${gatling.fail.on.error}</failOnError>
+                    <!-- Ensure that karate.env is defined for Gatling.-->
+                    <jvmArgs>-Dkarate.env=${karate.env}</jvmArgs>
+                    <includes>
+                        <include>${gatling.include}</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-core</artifactId>
+            <version>${karate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-apache</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.codepine.api</groupId>
+            <artifactId>testrail-api-java-client</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-gatling</artifactId>
+            <version>${karate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.azure</groupId>
+            <artifactId>azure</artifactId>
+            <version>1.33.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-security-keyvault-keys</artifactId>
+            <version>4.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jasypt</groupId>
+            <artifactId>jasypt</artifactId>
+            <version>1.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <!--
+                NOTE: Do not use latest version 5.4.0, use 4.3.0 instead, as it fails due a conflict with testrail-api-java-client
+                which uses an earlier version of com.fasterxml.jackson
+                Failure:
+                    java.lang.IllegalAccessError: class com.fasterxml.jackson.datatype.jsr310.JavaTimeModule tried to access
+                    protected method com.fasterxml.jackson.databind.ser.std.StdSerializer.<init>(Ljava/lang/Class;)
+            -->
+            <version>4.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>karate-tests</id>
+            <!-- Only run Karate tag based api runner -->
+            <properties>
+                <test.runner.include>runner.TagBasedApiRunner</test.runner.include>
+                <test.runner.exclude>utils.util.*Test</test.runner.exclude>
+            </properties>
+        </profile>
+        <profile>
+            <id>unit-tests</id>
+            <!-- Only run Java unit tests  -->
+            <properties>
+                <test.runner.include>utils.util.*Test</test.runner.include>
+                <test.runner.exclude>runner.TagBasedApiRunner</test.runner.exclude>
+            </properties>
+        </profile>
+        <profile>
+            <id>karate-and-unit-tests</id>
+            <!-- Run both Karate tag based api runner and Java unit tests  -->
+            <properties>
+                <test.runner.include>runner.TagBasedApiRunner,utils.util.*Test</test.runner.include>
+                <test.runner.exclude>something.which.does.not.exist</test.runner.exclude>
+            </properties>
+        </profile>
+        <profile>
+            <id>test-failure-ignore</id>
+            <!-- Only used from Jenkins, so that Maven will not fail, and test result files (Junit or Cucumber) can be processed -->
+            <properties>
+                <test.failure.ignore>true</test.failure.ignore>
+                <apitest.fail.if.failures>false</apitest.fail.if.failures>
+            </properties>
+        </profile>
+        <profile>
+            <id>karate-verify</id>
+            <!-- Only run the verify feature files and only those tagged @VERIFY - even if @ignore is present -->
+            <properties>
+                <apitest.feature.paths>classpath:features/verify</apitest.feature.paths>
+                <apitest.html.report.generate>false</apitest.html.report.generate>
+                <apitest.ignore>false</apitest.ignore>
+                <apitest.tags>@VERIFY</apitest.tags>
+                <karate.env>dev</karate.env>
+            </properties>
+        </profile>
+        <profile>
+            <id>gatling-failure-ignore</id>
+            <!-- Only used from Jenkins, so that Maven will not fail, and test result files (Junit) can be processed -->
+            <properties>
+                <gatling.fail.on.error>false</gatling.fail.on.error>
+            </properties>
+        </profile>
+        <profile>
+            <id>gatling-verify</id>
+            <properties>
+                <gatling.continue.on.assertion.failure>false</gatling.continue.on.assertion.failure>
+                <gatling.fail.on.error>true</gatling.fail.on.error>
+                <gatling.include>verify.Check</gatling.include>
+                <karate.env>dev</karate.env>
+            </properties>
+        </profile>
+    </profiles>
+</project>

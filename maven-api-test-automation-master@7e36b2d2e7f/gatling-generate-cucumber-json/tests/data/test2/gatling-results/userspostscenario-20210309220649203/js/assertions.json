@@ -1,0 +1,36 @@
+{
+  "simulation": "performance.UsersPostScenario",
+  "simulationId": "userspostscenario",
+  "start": 1615327609203,
+  "description": "",
+  "scenarios": ["posts"],
+  "assertions": [
+{
+  "path": "Global",
+  "target": "95th percentile of response time",
+  "condition": "is less than or equal to",
+  "expectedValues": [750.0],
+  "result": true,
+  "message": "Global: 95th percentile of response time is less than or equal to 750.0",
+  "actualValue": [672.0]
+},
+{
+  "path": "Global",
+  "target": "max of response time",
+  "condition": "is less than or equal to",
+  "expectedValues": [3000.0],
+  "result": true,
+  "message": "Global: max of response time is less than or equal to 3000.0",
+  "actualValue": [685.0]
+},
+{
+  "path": "Global",
+  "target": "percentage of successful requests",
+  "condition": "is",
+  "expectedValues": [100.0],
+  "result": true,
+  "message": "Global: percentage of successful requests is 100.0",
+  "actualValue": [100.0]
+}
+  ]
+}

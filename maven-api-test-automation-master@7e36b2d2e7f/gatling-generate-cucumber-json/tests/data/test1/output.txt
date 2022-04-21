@@ -1,0 +1,452 @@
+
+Running Gatling tests against dev
+
+    mvn clean test-compile 'gatling:test' --define karate.env=dev --define logback.configurationFile=logback-no-console-test.xml
+
+Output written to 'results/tests-gatling-dev-2021.03.10-15.16.09.txt'
+
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m-----------------< [0;36mau.gov.vic.sro:api-automation-test[0;1m >-----------------[m
+[[1;34mINFO[m] [1mBuilding api-automation-test 1.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mapi-automation-test[0;1m ---[m
+[[1;34mINFO[m] Deleting C:\Users\mad0\dev\api-test-automation-template\target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mapi-automation-test[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] skip non existing resourceDirectory C:\Users\mad0\dev\api-test-automation-template\src\main\resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:compile[m [1m(default-compile)[m @ [36mapi-automation-test[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 2 source files to C:\Users\mad0\dev\api-test-automation-template\target\classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mapi-automation-test[0;1m ---[m
+[[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[[1;34mINFO[m] Copying 24 resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.1:testCompile[m [1m(default-testCompile)[m @ [36mapi-automation-test[0;1m ---[m
+[[1;34mINFO[m] Changes detected - recompiling the module!
+[[1;34mINFO[m] Compiling 5 source files to C:\Users\mad0\dev\api-test-automation-template\target\test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mgatling-maven-plugin:3.0.2:test[m [1m(default-cli)[m @ [36mapi-automation-test[0;1m ---[m
+15:16:23.649 [main] INFO  io.gatling.compiler.ZincCompiler$ - Compiling 7 Scala sources to C:\Users\mad0\dev\api-test-automation-template\target\test-classes ...
+15:16:28.923 [main] INFO  io.gatling.compiler.ZincCompiler$ - Done compiling.
+Simulation performance.ExamplesScenario_EXAMPLE_10 started...
+
+================================================================================
+2021-03-10 15:16:37                                           5s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=48     KO=0     )
+> GET /users/{id}                                          (OK=48     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[###################################-                                      ] 48%
+          waiting: 51     / active: 1      / done: 48    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:16:42                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=98     KO=0     )
+> GET /users/{id}                                          (OK=98     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[########################################################################  ] 98%
+          waiting: 2      / active: 0      / done: 98    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:16:42                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=100    KO=0     )
+> GET /users/{id}                                          (OK=100    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done: 100   
+================================================================================
+
+Simulation performance.ExamplesScenario_EXAMPLE_10 completed in 9 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        100 (OK=100    KO=0     )
+> min response time                                     18 (OK=18     KO=-     )
+> max response time                                   1743 (OK=1743   KO=-     )
+> mean response time                                   345 (OK=345    KO=-     )
+> std deviation                                        596 (OK=596    KO=-     )
+> response time 50th percentile                         29 (OK=29     KO=-     )
+> response time 75th percentile                         56 (OK=56     KO=-     )
+> response time 95th percentile                       1742 (OK=1742   KO=-     )
+> response time 99th percentile                       1742 (OK=1742   KO=-     )
+> mean requests/sec                                     10 (OK=10     KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 500 ms                                            76 ( 76%)
+> 500 ms < t < 750 ms                                    2 (  2%)
+> t > 750 ms                                            22 ( 22%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: C:\Users\mad0\dev\api-test-automation-template\target\gatling\examplesscenario-example-10-20210310041632618\index.html
+Global: 95th percentile of response time is less than or equal to 1000.0 : false
+Global: max of response time is less than or equal to 1500.0 : false
+Global: percentage of successful requests is 100.0 : true
+Simulation performance.PhotosGetScenario_EXAMPLE_11 started...
+
+================================================================================
+2021-03-10 15:16:52                                           5s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=28     KO=0     )
+> GET /photos                                              (OK=28     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[####################--------------                                        ] 28%
+          waiting: 54     / active: 18     / done: 28    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:16:57                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=99     KO=0     )
+> GET /photos                                              (OK=99     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[#########################################################################-] 99%
+          waiting: 0      / active: 1      / done: 99    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:16:57                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=100    KO=0     )
+> GET /photos                                              (OK=100    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done: 100   
+================================================================================
+
+Simulation performance.PhotosGetScenario_EXAMPLE_11 completed in 10 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        100 (OK=100    KO=0     )
+> min response time                                     18 (OK=18     KO=-     )
+> max response time                                    366 (OK=366    KO=-     )
+> mean response time                                    47 (OK=47     KO=-     )
+> std deviation                                         43 (OK=43     KO=-     )
+> response time 50th percentile                         34 (OK=34     KO=-     )
+> response time 75th percentile                         53 (OK=53     KO=-     )
+> response time 95th percentile                         91 (OK=91     KO=-     )
+> response time 99th percentile                        185 (OK=185    KO=-     )
+> mean requests/sec                                  9.091 (OK=9.091  KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 500 ms                                           100 (100%)
+> 500 ms < t < 750 ms                                    0 (  0%)
+> t > 750 ms                                             0 (  0%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: C:\Users\mad0\dev\api-test-automation-template\target\gatling\photosgetscenario-example-11-20210310041646867\index.html
+Global: 95th percentile of response time is less than or equal to 500.0 : true
+Global: max of response time is less than or equal to 1000.0 : true
+Global: percentage of successful requests is 100.0 : true
+Simulation performance.PostsGetScenario_EXAMPLE_12 started...
+
+================================================================================
+2021-03-10 15:17:06                                           5s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=48     KO=0     )
+> GET /posts                                               (OK=48     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[###################################                                       ] 48%
+          waiting: 52     / active: 0      / done: 48    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:11                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=98     KO=0     )
+> GET /posts                                               (OK=98     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[########################################################################  ] 98%
+          waiting: 2      / active: 0      / done: 98    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:11                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=100    KO=0     )
+> GET /posts                                               (OK=100    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done: 100   
+================================================================================
+
+Simulation performance.PostsGetScenario_EXAMPLE_12 completed in 10 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        100 (OK=100    KO=0     )
+> min response time                                     19 (OK=19     KO=-     )
+> max response time                                    107 (OK=107    KO=-     )
+> mean response time                                    33 (OK=33     KO=-     )
+> std deviation                                         24 (OK=24     KO=-     )
+> response time 50th percentile                         26 (OK=26     KO=-     )
+> response time 75th percentile                         30 (OK=30     KO=-     )
+> response time 95th percentile                        106 (OK=106    KO=-     )
+> response time 99th percentile                        106 (OK=106    KO=-     )
+> mean requests/sec                                     10 (OK=10     KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 500 ms                                           100 (100%)
+> 500 ms < t < 750 ms                                    0 (  0%)
+> t > 750 ms                                             0 (  0%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: C:\Users\mad0\dev\api-test-automation-template\target\gatling\postsgetscenario-example-12-20210310041701424\index.html
+Global: 95th percentile of response time is less than or equal to 1500.0 : true
+Global: max of response time is less than or equal to 2500.0 : true
+Global: percentage of successful requests is 100.0 : true
+Simulation performance.PostsPostScenario_EXAMPLE_13 started...
+
+================================================================================
+2021-03-10 15:17:21                                           5s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=45     KO=0     )
+> POST /posts                                              (OK=45     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[#################################---                                      ] 45%
+          waiting: 52     / active: 3      / done: 45    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:26                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=95     KO=0     )
+> POST /posts                                              (OK=95     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[######################################################################--- ] 95%
+          waiting: 2      / active: 3      / done: 95    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:26                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=100    KO=0     )
+> POST /posts                                              (OK=100    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done: 100   
+================================================================================
+
+Simulation performance.PostsPostScenario_EXAMPLE_13 completed in 10 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        100 (OK=100    KO=0     )
+> min response time                                    260 (OK=260    KO=-     )
+> max response time                                    759 (OK=759    KO=-     )
+> mean response time                                   433 (OK=433    KO=-     )
+> std deviation                                        126 (OK=126    KO=-     )
+> response time 50th percentile                        505 (OK=505    KO=-     )
+> response time 75th percentile                        520 (OK=520    KO=-     )
+> response time 95th percentile                        572 (OK=572    KO=-     )
+> response time 99th percentile                        599 (OK=599    KO=-     )
+> mean requests/sec                                  9.091 (OK=9.091  KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 500 ms                                            46 ( 46%)
+> 500 ms < t < 750 ms                                   53 ( 53%)
+> t > 750 ms                                             1 (  1%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: C:\Users\mad0\dev\api-test-automation-template\target\gatling\postspostscenario-example-13-20210310041716021\index.html
+Global: 95th percentile of response time is less than or equal to 750.0 : true
+Global: max of response time is less than or equal to 3000.0 : true
+Global: percentage of successful requests is 100.0 : true
+Simulation performance.Todos403Scenario_EXAMPLE_14 started...
+
+================================================================================
+2021-03-10 15:17:36                                           5s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=95     KO=0     )
+> GET /todos/{id}                                          (OK=95     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##################################-                                       ] 47%
+          waiting: 52     / active: 1      / done: 47    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:41                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=196    KO=0     )
+> GET /todos/{id}                                          (OK=196    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[########################################################################  ] 98%
+          waiting: 2      / active: 0      / done: 98    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:41                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=200    KO=0     )
+> GET /todos/{id}                                          (OK=200    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done: 100   
+================================================================================
+
+Simulation performance.Todos403Scenario_EXAMPLE_14 completed in 10 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        200 (OK=200    KO=0     )
+> min response time                                     18 (OK=18     KO=-     )
+> max response time                                    103 (OK=103    KO=-     )
+> mean response time                                    29 (OK=29     KO=-     )
+> std deviation                                         18 (OK=18     KO=-     )
+> response time 50th percentile                         23 (OK=23     KO=-     )
+> response time 75th percentile                         29 (OK=29     KO=-     )
+> response time 95th percentile                        101 (OK=101    KO=-     )
+> response time 99th percentile                        102 (OK=102    KO=-     )
+> mean requests/sec                                 18.182 (OK=18.182 KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 500 ms                                           200 (100%)
+> 500 ms < t < 750 ms                                    0 (  0%)
+> t > 750 ms                                             0 (  0%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: C:\Users\mad0\dev\api-test-automation-template\target\gatling\todos403scenario-example-14-20210310041731639\index.html
+Global: 95th percentile of response time is less than or equal to 150.0 : true
+Global: max of response time is less than or equal to 250.0 : true
+Global: percentage of successful requests is 100.0 : true
+Simulation performance.UsersPostScenario_EXAMPLE_15 started...
+
+================================================================================
+2021-03-10 15:17:51                                           5s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=43     KO=0     )
+> POST /users                                              (OK=43     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[###############################---                                        ] 43%
+          waiting: 53     / active: 4      / done: 43    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:56                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=94     KO=0     )
+> POST /users                                              (OK=94     KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[#####################################################################---- ] 94%
+          waiting: 1      / active: 5      / done: 94    
+================================================================================
+
+
+================================================================================
+2021-03-10 15:17:57                                          10s elapsed
+---- Requests ------------------------------------------------------------------
+> Global                                                   (OK=100    KO=0     )
+> POST /users                                              (OK=100    KO=0     )
+
+---- posts ---------------------------------------------------------------------
+[##########################################################################]100%
+          waiting: 0      / active: 0      / done: 100   
+================================================================================
+
+Simulation performance.UsersPostScenario_EXAMPLE_15 completed in 10 seconds
+Parsing log file(s)...
+Parsing log file(s) done
+Generating reports...
+
+================================================================================
+---- Global Information --------------------------------------------------------
+> request count                                        100 (OK=100    KO=0     )
+> min response time                                    265 (OK=265    KO=-     )
+> max response time                                    623 (OK=623    KO=-     )
+> mean response time                                   447 (OK=447    KO=-     )
+> std deviation                                        115 (OK=115    KO=-     )
+> response time 50th percentile                        503 (OK=503    KO=-     )
+> response time 75th percentile                        531 (OK=531    KO=-     )
+> response time 95th percentile                        600 (OK=600    KO=-     )
+> response time 99th percentile                        623 (OK=623    KO=-     )
+> mean requests/sec                                  9.091 (OK=9.091  KO=-     )
+---- Response Time Distribution ------------------------------------------------
+> t < 500 ms                                            47 ( 47%)
+> 500 ms < t < 750 ms                                   53 ( 53%)
+> t > 750 ms                                             0 (  0%)
+> failed                                                 0 (  0%)
+================================================================================
+
+Reports generated in 0s.
+Please open the following file: C:\Users\mad0\dev\api-test-automation-template\target\gatling\userspostscenario-example-15-20210310041746644\index.html
+Global: 95th percentile of response time is less than or equal to 750.0 : true
+Global: max of response time is less than or equal to 3000.0 : true
+Global: percentage of successful requests is 100.0 : true
+[[1;33mWARNING[m] There were some errors while running your simulation, but continueOnAssertionFailure was set to true, so your simulations continue to perform.
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  01:43 min
+[[1;34mINFO[m] Finished at: 2021-03-10T15:17:58+11:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32mio.gatling:gatling-maven-plugin:3.0.2:test[m [1m(default-cli)[m on project [36mapi-automation-test[m: [1;31mGatling simulation assertions failed ![m: Process exited with an error: 2 (Exit value: 2) -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+FAIL: Invocation of 'mvn' failed
+
+Output log file saved to 'results/tests-gatling-dev-2021.03.10-15.16.09/output.log'
+
+Gatling results saved to 'results/tests-gatling-dev-2021.03.10-15.16.09/gatling'
+
+Output saved to 'results/tests-gatling-dev-2021.03.10-15.16.09.txt' (took 00:01:49)

@@ -1,0 +1,36 @@
+{
+  "simulation": "performance.Todos403Scenario_EXAMPLE_14",
+  "simulationId": "todos403scenario-example-14",
+  "start": 1615349851639,
+  "description": "",
+  "scenarios": ["posts"],
+  "assertions": [
+{
+  "path": "Global",
+  "target": "95th percentile of response time",
+  "condition": "is less than or equal to",
+  "expectedValues": [150.0],
+  "result": true,
+  "message": "Global: 95th percentile of response time is less than or equal to 150.0",
+  "actualValue": [101.0]
+},
+{
+  "path": "Global",
+  "target": "max of response time",
+  "condition": "is less than or equal to",
+  "expectedValues": [250.0],
+  "result": true,
+  "message": "Global: max of response time is less than or equal to 250.0",
+  "actualValue": [103.0]
+},
+{
+  "path": "Global",
+  "target": "percentage of successful requests",
+  "condition": "is",
+  "expectedValues": [100.0],
+  "result": true,
+  "message": "Global: percentage of successful requests is 100.0",
+  "actualValue": [100.0]
+}
+  ]
+}

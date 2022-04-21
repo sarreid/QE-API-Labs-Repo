@@ -1,0 +1,52 @@
+[
+    {
+        "line": 2,
+        "elements": [
+            {
+                "line": 4,
+                "name": null,
+                "description": "",
+                "id": "",
+                "type": "scenario",
+                "keyword": "Scenario",
+                "steps": [
+                    {
+                        "name": "Performance simulation ...",
+                        "result": {
+                            "duration": 0,
+                            "status": "passed"
+                        },
+                        "keyword": "Given",
+                        "line": 5
+                    },
+                    {
+                        "name": "Assertions",
+                        "result": {
+                            "duration": 0,
+                            "status": "passed"
+                        },
+                        "keyword": "Then",
+                        "line": 6
+                    }
+                ],
+                "tags": [
+                    {
+                        "name": null,
+                        "line": 3
+                    }
+                ]
+            }
+        ],
+        "name": null,
+        "description": null,
+        "id": null,
+        "keyword": "Feature",
+        "uri": null,
+        "tags": [
+            {
+                "name": "@GATLING",
+                "line": 1
+            }
+        ]
+    }
+]

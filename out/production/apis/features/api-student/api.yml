@@ -1,0 +1,301 @@
+openapi: 3.0.0
+
+servers: 
+  - url: http://localhost:8500/
+
+info:
+  description: API student training lab
+  version: "1.0.0"
+  title: API - Student
+  contact:
+    name: Jing Zuo
+    email: jzuo@deloitte.com.au
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /token:
+    post:
+      description: To create a token
+      parameters:
+        - $ref: '#/components/parameters/clientidParam'
+
+      requestBody:
+        description: request for creating a token
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - key
+              properties:
+                key:
+                  type: string
+                  example: quality-engineering
+        
+      
+      responses:
+        '200':
+          description: Successfully create a token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authorization'
+
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid key! 
+        
+        '502':
+          $ref: '#/components/responses/502Error'
+  
+  #  ----- Added lines  ----------------------------------------
+  /student/create:
+    post:
+      description: To create a new student
+      parameters:
+        - $ref: '#/components/parameters/clientidParam'
+        - $ref: '#/components/parameters/authParam'
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+      
+      responses:
+        '201':  
+          description: Successfully create a new student
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    example: db98b57e-2344-44f9-a893-9f81311e4636
+                  
+                  message: 
+                    type: string
+                    example: New student was created successfully!
+        
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: ERROR! Student exists!
+
+        '401':
+          $ref: '#/components/responses/401Error'
+        
+        '502':
+          $ref: '#/components/responses/502Error'
+
+  #  ----- Added lines  ----------------------------------------
+  /student/{id}/details:
+    get: 
+      description: Return the student details
+      parameters:
+        - $ref: '#/components/parameters/clientidParam'
+        - $ref: '#/components/parameters/authParam'
+        - name: id 
+          in: path
+          required: true
+          schema: 
+            type: string
+            format: uuid
+            example: db98b57e-2344-44f9-a893-9f81311e4636
+
+      responses:
+        '200':
+          $ref: '#/components/responses/StudentInfo'
+        
+        '401':
+          $ref: '#/components/responses/401Error'
+
+        '404':
+          description: No student found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: No student found!
+        
+        '502':
+          $ref: '#/components/responses/502Error'
+
+  #  ----- Added lines  ----------------------------------------
+  /students:
+    get:
+      description: Return a list of students
+      parameters:
+        - $ref: '#/components/parameters/clientidParam'
+        - $ref: '#/components/parameters/authParam'
+
+      responses:
+        '200':
+          description: Successfully return a list of students
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/responses/StudentInfo'
+                example:
+                  - id: bd8a7407-e5d2-4dfb-9bfe-69829f457698
+                    firstName: Ada
+                    lastName: Kim
+                    nationality: Australian
+                    dateOfBirth: 01/01/1994
+                    email: hjbasgdaiud@email.com
+                    mobileNumber: 0411111111
+                  
+                  - id: c40f8e99-bde5-4af4-ba9e-de67314229fb
+                    firstName: Linda
+                    lastName: John
+                    nationality: Australian
+                    dateOfBirth: 01/01/1974
+                    email: hjagsdjs@email.com
+                    mobileNumber: 0412111222
+                  
+                  - id: c40f8e99-bde5-4af4-ba9e-de67314229sd
+                    firstName: Gina
+                    lastName: Tong
+                    nationality: Australian
+                    dateOfBirth: 01/01/1991
+                    email: hjagsd@email.com
+                    mobileNumber: 04123123122
+        
+        '401':
+          $ref: '#/components/responses/401Error'
+
+        '502':
+          $ref: '#/components/responses/502Error'
+
+#  ----- Added lines  ----------------------------------------  
+   
+components:
+  schemas:
+    Student:
+      type: object
+      description: student information
+      properties:
+        firstName: 
+          type: string
+          example: Mike
+                    
+        lastName:
+          type: string
+          example: Smith
+                      
+        nationality:
+          type: string
+          example: Australian
+        
+        dateOfBirth:
+          type: string
+          example: 01/01/1974
+
+        email:
+          type: string
+          example: hjmsjk@gmail.com
+        
+        mobileNumber:
+          type: string
+          example: '0411111111'
+
+    Authorization:
+      type: object
+      description: get a created token
+      properties:
+        token:
+          type: string
+  
+  #  ----- Added lines  ----------------------------------------  
+  parameters:
+    clientidParam:
+      name: Client-Id
+      in: header
+      description: Client-id is the unique Id that was used to create token.
+      required: true
+      schema:
+        type: string
+    
+    authParam:
+      name: Authorization
+      in: header
+      description: Authorization is the token that was created from create token call.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Authorization'
+
+  responses:
+    502Error:
+      description: 502 Bad Gateway
+
+    401Error:
+      description: Unauthorized request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized request
+
+    StudentInfo:
+      description: Return a student details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id: 
+                type: string
+                format: uuid
+                example: c40f8e99-bde5-4af4-ba9e-de67314229fb
+              
+              firstName: 
+                type: string
+                example: Mike
+                          
+              lastName:
+                type: string
+                example: Smith
+                            
+              nationality:
+                type: string
+                example: Australian
+              
+              dateOfBirth:
+                type: string
+                example: 01/01/1974
+
+              email:
+                type: string
+                example: hjmsjk@gmail.com
+              
+              mobileNumber:
+                type: string
+                example: '0411111111'
+              

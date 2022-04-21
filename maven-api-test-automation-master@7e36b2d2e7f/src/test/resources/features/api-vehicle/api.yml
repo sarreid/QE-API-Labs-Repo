@@ -1,0 +1,380 @@
+openapi: 3.0.0
+
+servers: 
+  # Added by API Auto Mocking Plugin
+  # - description: API - Vehicle
+  - url: http://localhost:8500/
+
+info:
+  description: API vehicle training lab
+  version: "1.0.0"
+  title: API - Vehicle
+  contact:
+    name: Jing Zuo
+    email: jzuo@deloitte.com.au
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /vehicle/{registration}/details:
+    get: 
+      description: Return the vehicle details
+      
+      parameters:
+        - name: registration
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: EAGLE576
+      
+      responses:
+        '200':
+          $ref: '#/components/responses/200Vehicle'
+
+        '404':
+          $ref: '#/components/responses/404Error'
+
+        '502':
+          $ref: '#/components/responses/502Error'
+  
+  #  ----- Added lines  ----------------------------------------
+  /data/{registration}:
+    get:
+      description: Return vehicle details from the data source
+      
+      parameters:
+        - name: registration
+          in: path
+          required: true
+          schema: 
+            type: string
+            example: EAGLE576
+
+      responses:
+        '200':
+          $ref: '#/components/responses/200VehicleData'
+        
+        '404':
+          $ref: '#/components/responses/404Error'
+
+        '502':
+          $ref: '#/components/responses/502Error'
+
+#  ----- Added lines  ----------------------------------------  
+components:
+  responses:
+    502Error:
+      description: 502 Bad Gateway
+
+    404Error:
+      description: No found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: No vehicle found!
+    
+    200Vehicle:
+      description: Successully return vehicle details
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message: 
+                type: string
+                example: ok
+              
+              data:
+                $ref: '#/components/schemas/data'
+    
+    200VehicleData:
+      description: Successully return vehicle details from the data source
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              year: 
+                type: string
+                example: 2004
+              
+              make: 
+                type: string
+                example: HYUNDAI
+
+              model:
+                type: string
+                example: SANTA FE
+
+              transmission:
+                type: string
+                example: Auto
+              
+              odometer:
+                type: string
+                example: 3499
+
+              rego:
+                type: string
+                example: EAGLE576
+
+              state: 
+                type: string
+                example: VIC
+
+              addressModel:
+                type: array
+                items:
+                  $ref: '#/components/schemas/addressModelData'
+                example: 
+                  - addressType: Postal
+                    address1: 50 King Street
+                    address2:
+                    state: VIC
+                    postcode: 3000
+                    country: Australia
+
+                  - addressType: Residential
+                    address1: 330 Queen Street
+                    addresLine2:
+                    state: VIC
+                    postcode: 3000             
+                    country: Australia
+
+              owner:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ownerData'
+                example:
+                  - fullName: "Mirta Nienow"
+                    dob: "02 December 1981"
+                    isCurrentOwner: true
+                    license: "3525347166"
+      
+                  - fullName: "Brooks Emmerich"
+                    dob: "13 October 1972"
+                    isCurrentOwner: false
+                    license: 0638575766
+  
+  #  ----- Added lines  ----------------------------------------  
+  schemas:
+    #  ----- 3.1 get vehicle details  ----------------------------------------  
+    ownerDetail:
+      type: object
+      description: get owner details
+      properties:
+        fullName:
+          type: string
+          example: Mirta Nienow
+
+        dateOfBirth: 
+          type: string
+          format: date
+          example: 02/12/1981
+        
+        driverLicense:
+          type: string
+          example: 3525347166
+
+        isCurrentOwner:
+          type: boolean
+          example: true
+
+    addressDetail:
+      type: object
+      description: get address details
+      properties:
+        addressType:
+          type: string
+          example: Postal
+
+        addressLine1: 
+            type: string
+            example: 170 Jacobs Mission
+        
+        addresLine2:
+          type: string
+          example: 5 Bourke Street
+
+        postcode:
+          type: string
+          example: 3000
+
+        state:
+          type: string
+          example: VIC 
+        
+        country:
+          type: string
+          example: Australia 
+    
+    vehicle:
+      type: object
+      description: get vehicel information
+      properties:
+        year: 
+          type: string
+          example: 2004
+        
+        make: 
+          type: string
+          example: HYUNDAI
+        
+        model:
+          type: string
+          example: SANTA FE
+        
+        transmission:
+          type: string
+          example: Auto
+
+        odometer: 
+          type: string
+          example: 3499
+
+    registration:
+      type: object
+      description: get registration details
+      properties:
+        registrationNumber:
+          type: string
+          example: EAGLE576
+        
+        state:
+          type: string
+          example: VIC
+
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/addressDetail'
+          example:
+            - addressType: Postal
+              addressLine1: 50 King Street
+              addressline2:
+              postcode: 3000
+              state: VIC
+              country: Australia
+            
+            - addressType: Residential
+              addressLine1: 330 Queen Street
+              addresLine2:
+              postcode: 3000
+              state: VIC
+              country: Australia
+      
+    data:
+      type: object
+      description: get details of the vehicle
+      properties:
+        vehicle:
+          $ref: '#/components/schemas/vehicle'
+          example:
+            year: "2004"
+            make: "HYUNDAI"
+            model: "SANTA FE"
+            transmission: "Auto"
+            odometer: "3499"
+        
+        registration:
+          $ref: '#/components/schemas/registration'
+          example:
+            registrationNumber: EAGLE576
+            state: VIC
+            address:
+              - addressType: Postal
+                addressLine1: 50 King Street
+                addressline2:
+                postcode: 3000
+                state: VIC
+                country: Australia
+            
+              - addressType: Residential
+                addressLine1: 330 Queen Street
+                addresLine2:
+                postcode: 3000
+                state: VIC
+                country: Australia
+        
+        owner:
+          type: array
+          items:
+            $ref: '#/components/schemas/ownerDetail'
+          example:
+            - fullName: "Mirta Nienow"
+              dateOfBirth: "02/12/1981"
+              driverLicense: "3525347166"
+              isCurrentOwner: true
+            
+            - fullName: "Brooks Emmerich"
+              dateOfBirth: "13/10/1972"
+              driverLicense: "0638575766"
+              isCurrentOwner: false
+            
+            - fullName: "Leigh Bauch"
+              dateOfBirth: "17/02/1987"
+              driverLicense: "1897083055"
+              isCurrentOwner: false
+    
+    #  ----- 3.2 get vehicle data  ---------------------------------------- 
+    ownerData: 
+      type: object
+      description: get owner details from data source
+      properties:
+        fullName:
+          type: string
+          example: Mirta Nienow
+
+        dob: 
+          type: string
+          example: 02 December 1981
+        
+        isCurrentOwner:
+          type: boolean
+          example: true
+        
+        license:
+          type: string
+          example: 3525347166
+
+    addressModelData:
+      type: object
+      description: get address details from data source
+      properties:
+        addressType:
+          type: string
+          example: Postal
+
+        address1: 
+            type: string
+            example: 170 Jacobs Mission
+        
+        addres2:
+          type: string
+          example: 5 Bourke Street
+
+        state:
+          type: string
+          example: VIC 
+
+        postcode:
+          type: string
+          example: 3000
+        
+        country:
+          type: string
+          example: Australia 
+       
+            
+
+
+
+
+
+        

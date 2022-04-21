@@ -1,0 +1,14 @@
+# NOTE: Explicitly allow simulation.log files to NOT be ignored
+!simulation.log
+
+# ignore node modules folder
+node_modules/
+
+# ignore run-tests.sh results folder
+results/
+
+# Ignore test restuls folder
+tests/data/results/
+
+# Jenkins tests results (Junit) file
+test-results.xml
